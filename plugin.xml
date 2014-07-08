@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.egood.magtek-udynamo" version="0.0.1" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>MagTek uDynamo Card Reader</name>
+    <description>Allow using the MagTek uDynamo Card Reader with PhoneGap apps</description>
+    <author email="dev@egood.com" href="http://www.egood.com">eGood, LLC</author>
+    <license>Apache 2.0</license>
+    
+    <keywords>magtek,card reader,credit card,reader</keywords>
+
+    <engines>
+        <engine name="cordova" version=">3.0.0" />
+    </engines>
+
+    <platform name="ios">    
+        <config-file target="config.xml" parent="/*">
+            <feature name="com.egood.magtek-udynamo">
+                <param name="ios-package" value="com.egood.magtek-udynamo.MagTekUDynamoPlugin" />
+            </feature>
+        </config-file>
+        
+        <asset src="www/js/magtek-udynamo.js" target="magtek-udynamo.js" />
+
+        <header-file src="src/ios/MagTekUDynamoPlugin.h" />
+        <source-file src="src/ios/MagTekUDynamoPlugin.m" />
+
+        <source-file src="src/ios/Release-iphoneos/libMTSCRA.a" framework="true" />
+
+        <header-file src="src/ios/MTSCRA.h" target-dir="magtek" />
+    </platform>
+</plugin>
