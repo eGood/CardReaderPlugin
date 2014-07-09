@@ -5,8 +5,8 @@
 @interface MagTekUDynamoPlugin ()
 
 @property (strong, nonatomic) MTSCRA* mMagTek;
-@property (strong, nonatomic) bool mDeviceConnected;
-@property (strong, nonatomic) bool mDeviceOpened;
+@property bool mDeviceConnected;
+@property bool mDeviceOpened;
 
 @end
 
@@ -24,11 +24,11 @@
 
 	//Make MagTek call to check if device is connected
 	if(self.mMagTek != nil) {
-		self.mDeviceConnection = [self.mMagTek isDeviceConnected];
-		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:self.mDeviceConnection];
+		self.mDeviceConnected = [self.mMagTek isDeviceConnected];
+		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:self.mDeviceConnected];
 	}
 	else {
-		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:"MagTek Plugin was not properly initialized."];
+		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"MagTek Plugin was not properly initialized."];
 	}
 
 	[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];

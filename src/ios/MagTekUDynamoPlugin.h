@@ -1,6 +1,6 @@
 #import <Cordova/CDV.h>
 
-@interface MagTekUDynamo : CDVPlugin
+@interface MagTekUDynamoPlugin : CDVPlugin
 
 - (void)isDeviceConnected: (CDVInvokedUrlCommand*) command;
 

@@ -14,17 +14,26 @@
     <platform name="ios">    
         <config-file target="config.xml" parent="/*">
             <feature name="com.egood.magtek-udynamo">
-                <param name="ios-package" value="com.egood.magtek-udynamo.MagTekUDynamoPlugin" />
+                <param name="ios-package" value="MagTekUDynamoPlugin" />
             </feature>
         </config-file>
         
-        <asset src="www/js/magtek-udynamo.js" target="magtek-udynamo.js" />
+        <js-module src="www/js/magtek_udynamo.js" name="MagTek">
+            <clobbers target="cordova.plugins.MagTek" />
+        </js-module>
 
         <header-file src="src/ios/MagTekUDynamoPlugin.h" />
         <source-file src="src/ios/MagTekUDynamoPlugin.m" />
-
-        <source-file src="src/ios/Release-iphoneos/libMTSCRA.a" framework="true" />
-
-        <header-file src="src/ios/MTSCRA.h" target-dir="magtek" />
+        
+        <header-file src="src/ios/MTSCRA.h" />
+        <source-file src="src/ios/libMTSCRA.a" framework="true" />
+        
+        <framework src="libstdc++.dylib" />
+        <framework src="avfoundation.framework" />
+        <framework src="mediaplayer.framework"  />
+        <framework src="audiotoolbox.framework" />
+        <framework src="foundation.framework" />
+        <framework src="externalaccessory.framework" />
     </platform>
 </plugin>
+/Users/thomastakemoto/Desktop/uDynamoPlugin/CardReaderPlugin/plugin.xml
