@@ -108,10 +108,10 @@
 
         cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'setDeviceProtocolString', [protocol_string]);
     };
-    MagTek.listenFoEvents = function(callback, events) {
+    MagTek.listenForEvents = function(callback, events) {
         var success = function(status) { callback(status); };
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'listenFoEvents', [events]);
+        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'listenForEvents', [events]);
     };
     MagTek.getCardName = function(callback) {
         var success = function(card_name) { callback(card_name); };
