@@ -1,7 +1,6 @@
     'use strict';
  
     var MagTek = ( typeof MagTek === 'undefined' ? {} : MagTek );
-
     var cordova = window.cordova || window.Cordova,
         fail = function(error) {
             $('.error').html('Something went wrong: ' + error);
