@@ -147,6 +147,28 @@
     {
         if([self.mMagTek getDeviceType] == MAGTEKAUDIOREADER)
         {
+            [data setObject:[self.mMagTek getResponseType] forKey:@"Response.Type"];
+            [data setObject:[self.mMagTek getTrackDecodeStatus] forKey:@"Track.Status"];
+            [data setObject:[self.mMagTek getCardStatus] forKey:@"Card.Status"];
+            [data setObject:[self.mMagTek getEncryptionStatus] forKey:@"Encryption.Status"];
+            [data setObject:[NSString stringWithFormat:@"%ld", [self.mMagTek getBatteryLevel] ] forKey:@"Battery.Level"];
+            [data setObject:[NSString stringWithFormat:@"%ld", [self.mMagTek getSwipeCount]] forKey:@"Swipe.Count"];
+            [data setObject:[self.mMagTek getMaskedTracks] forKey:@"Track.Masked"];
+            [data setObject:[self.mMagTek getMagnePrintStatus] forKey:@"MagnePrint.Status"];
+            [data setObject:[self.mMagTek getSessionID] forKey:@"SessionID"];
+            [data setObject:[self.mMagTek getCardServiceCode] forKey:@"Card.SvcCode"];
+            [data setObject:[NSString stringWithFormat:@"%d", [self.mMagTek getCardPANLength]] forKey:@"Card.PANLength"];
+            [data setObject:[self.mMagTek getKSN] forKey:@"KSN"];
+            [data setObject:[self.mMagTek getDeviceSerial] forKey:@"Device.SerialNumber"];
+            [data setObject:[self.mMagTek getTagValue:TLV_CARDIIN] forKey:@"TLV.CARDIIN"];
+            [data setObject:[self.mMagTek getMagTekDeviceSerial] forKey:@"MagTekSN"];
+            [data setObject:[self.mMagTek getFirmware] forKey:@"FirmPartNumber"];
+            [data setObject:[self.mMagTek getTLVVersion] forKey:@"TLV.Version"];
+            [data setObject:[self.mMagTek getDeviceName] forKey:@"DevModelName"];
+            [data setObject:[self.mMagTek getCapMSR] forKey:@"MSR.Capability"];
+            [data setObject:[self.mMagTek getCapTracks] forKey:@"Tracks.Capability"];
+            [data setObject:[self.mMagTek getCapMagStripeEncryption] forKey:@"Encryption.Capability"];
+
             [data setObject:[self.mMagTek getCardIIN] forKey:@"Card.IIN"];
         	[data setObject:[self.mMagTek getCardName] forKey:@"Card.Name"];
         	[data setObject:[self.mMagTek getCardLast4] forKey:@"Card.Last4"];
@@ -155,74 +177,48 @@
         	[data setObject:[self.mMagTek getTrack1Masked] forKey:@"Track1.Masked"];
         	[data setObject:[self.mMagTek getTrack2Masked] forKey:@"Track2.Masked"];
         	[data setObject:[self.mMagTek getTrack3Masked] forKey:@"Track3.Masked"];
+        	[data setObject:[self.mMagTek getTrack1] forKey:@"Track1"];
+        	[data setObject:[self.mMagTek getTrack2] forKey:@"Track2"];
+        	[data setObject:[self.mMagTek getTrack3] forKey:@"Track3"];
         	[data setObject:[self.mMagTek getMagnePrint] forKey:@"MagnePrint"];
         	[data setObject:[self.mMagTek getResponseData] forKey:@"RawResponse"];
             
             /*
-             NSString *pResponse = [NSString stringWithFormat:@"Response.Type: %@\n"
-             "Track.Status: %@\n"
-             "Card.Status: %@\n"
-             "Encryption.Status: %@\n"
-             "Battery.Level: %ld\n"
-             "Swipe.Count: %ld\n"
-             "Track.Masked: %@\n"
-             "Track1.Masked: %@\n"
-             "Track2.Masked: %@\n"
-             "Track3.Masked: %@\n"
-             "Track1.Encrypted: %@\n"
-             "Track2.Encrypted: %@\n"
-             "Track3.Encrypted: %@\n"
-             "MagnePrint.Encrypted: %@\n"
-             "MagnePrint.Status: %@\n"
-             "SessionID: %@\n"
-             "Card.IIN: %@\n"
-             "Card.Name: %@\n"
-             "Card.Last4: %@\n"
-             "Card.ExpDate: %@\n"
-             "Card.SvcCode: %@\n"
-             "Card.PANLength: %d\n"
-             "KSN: %@\n"
-             "Device.SerialNumber: %@\n"
-             "TLV.CARDIIN: %@\n"
-             "MagTek SN: %@\n"
-             "Firmware Part Number: %@\n"
-             "TLV Version: %@\n"
-             "Device Model Name: %@\n"
-             "Capability MSR: %@\n"
-             "Capability Tracks: %@\n"
-             "Capability Encryption: %@\n",
-             [self.mMagTek getResponseType],
-             [self.mMagTek getTrackDecodeStatus],
-             [self.mMagTek getCardStatus],
-             [self.mMagTek getEncryptionStatus],
-             [self.mMagTek getBatteryLevel],
-             [self.mMagTek getSwipeCount],
-             [self.mMagTek getMaskedTracks],
-             [self.mMagTek getTrack1Masked],
-             [self.mMagTek getTrack2Masked],
-             [self.mMagTek getTrack3Masked],
-             [self.mMagTek getTrack1],
-             [self.mMagTek getTrack2],
-             [self.mMagTek getTrack3],
-             [self.mMagTek getMagnePrint],
-             [self.mMagTek getMagnePrintStatus],
-             [self.mMagTek getSessionID],
-             [self.mMagTek getCardIIN],
-             [self.mMagTek getCardName],
-             [self.mMagTek getCardLast4],
-             [self.mMagTek getCardExpDate],
-             [self.mMagTek getCardServiceCode],
-             [self.mMagTek getCardPANLength],
-             [self.mMagTek getKSN],
-             [self.mMagTek getDeviceSerial],
-             [self.mMagTek getTagValue:TLV_CARDIIN],
-             [self.mMagTek getMagTekDeviceSerial],
-             [self.mMagTek getFirmware],
-             [self.mMagTek getTLVVersion],
-             [self.mMagTek getDeviceName],
-             [self.mMagTek getCapMSR],
-             [self.mMagTek getCapTracks],
-             [self.mMagTek getCapMagStripeEncryption]];
+             NSString *pResponse = [NSString stringWithFormat:@"Response.Type: %@\n" - [self.mMagTek getResponseType],
+             "Track.Status: %@\n" -[self.mMagTek getTrackDecodeStatus],
+             "Card.Status: %@\n" -[self.mMagTek getCardStatus],
+             "Encryption.Status: %@\n" -[self.mMagTek getEncryptionStatus],
+             "Battery.Level: %ld\n" -[self.mMagTek getBatteryLevel],
+             "Swipe.Count: %ld\n" -[self.mMagTek getSwipeCount],
+             "Track.Masked: %@\n" -[self.mMagTek getMaskedTracks],
+             "MagnePrint.Status: %@\n" -[self.mMagTek getMagnePrintStatus],
+             "SessionID: %@\n" -[self.mMagTek getSessionID],
+             "Card.SvcCode: %@\n" -[self.mMagTek getCardServiceCode],
+             "Card.PANLength: %d\n" -[self.mMagTek getCardPANLength],
+             "KSN: %@\n" -[self.mMagTek getKSN],
+             "Device.SerialNumber: %@\n" -[self.mMagTek getDeviceSerial],
+             "TLV.CARDIIN: %@\n" -[self.mMagTek getTagValue:TLV_CARDIIN],
+             "MagTek SN: %@\n" -[self.mMagTek getMagTekDeviceSerial],
+             "Firmware Part Number: %@\n" - [self.mMagTek getFirmware],
+             "TLV Version: %@\n" -[self.mMagTek getTLVVersion],
+             "Device Model Name: %@\n" -[self.mMagTek getDeviceName],
+             "Capability MSR: %@\n" -[self.mMagTek getCapMSR],
+             "Capability Tracks: %@\n" -[self.mMagTek getCapTracks],
+             "Capability Encryption: %@\n", -[self.mMagTek getCapMagStripeEncryption]]
+             
+             
+             "Card.IIN: %@\n" -[self.mMagTek getCardIIN],
+             "Card.Name: %@\n" -[self.mMagTek getCardName],
+             "Card.Last4: %@\n" -[self.mMagTek getCardLast4],
+             "Card.ExpDate: %@\n" -[self.mMagTek getCardExpDate],
+             "Track1.Masked: %@\n" -[self.mMagTek getTrack1Masked],
+             "Track2.Masked: %@\n" -[self.mMagTek getTrack2Masked],
+             "Track3.Masked: %@\n" -[self.mMagTek getTrack3Masked],
+             "Track1.Encrypted: %@\n" -[self.mMagTek getTrack1],
+             "Track2.Encrypted: %@\n" -[self.mMagTek getTrack2],
+             "Track3.Encrypted: %@\n" -[self.mMagTek getTrack3],
+             "MagnePrint.Encrypted: %@\n" -[self.mMagTek getMagnePrint],
+             ;
              */
         }
         else
@@ -362,30 +358,30 @@
             
         }
         case TRANS_STATUS_START:
-        
-        /*
-         *
-         *  NOTE: TRANS_STATUS_START should be used with caution. CPU intensive tasks done after this events and before
-         *        TRANS_STATUS_OK may interfere with reader communication.
-         *
-         */
-        break;
-        
+            
+            /*
+             *
+             *  NOTE: TRANS_STATUS_START should be used with caution. CPU intensive tasks done after this events and before
+             *        TRANS_STATUS_OK may interfere with reader communication.
+             *
+             */
+            break;
+            
         case TRANS_STATUS_ERROR:
-        
-        if(self.mMagTek != NULL)
-        {
+            
+            if(self.mMagTek != NULL)
+            {
 #ifdef _DGBPRNT
-            NSLog(@"TRANS_STATUS_ERROR");
+                NSLog(@"TRANS_STATUS_ERROR");
 #endif
-            //[self updateConnStatus];
-        }
-        
-        break;
-        
+                //[self updateConnStatus];
+            }
+            
+            break;
+            
         default:
-        
-        break;
+            
+            break;
     }
 }
 
