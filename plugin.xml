@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.egood.magtek-udynamo" version="0.0.1" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="com.egood.cordova.plugins.magtekudynamo" version="0.0.1" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>MagTek uDynamo Card Reader</name>
     <description>Allow using the MagTek uDynamo Card Reader with PhoneGap apps</description>
     <author email="dev@egood.com" href="http://www.egood.com">eGood, LLC</author>
@@ -35,5 +35,20 @@
         <framework src="foundation.framework" />
         <framework src="externalaccessory.framework" />
     </platform>
+
+    <platform name="android">    
+        <config-file target="config.xml" parent="/*">
+            <feature name="com.egood.magtek-udynamo">
+                <param name="android-package" value="com.egood.cordova.plugins.magtekudynamo.MagTekUDynamoPlugin" />
+            </feature>
+        </config-file>
+        
+        <js-module src="www/js/magtek_udynamo.js" name="MagTek">
+            <clobbers target="cordova.plugins.MagTek" />
+        </js-module>
+
+        <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/magtek-scra.jar" target-dir="libs" />
+        <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/ksoap2-android-assembly-2.6.5-jar-with-dependencies.jar" target-dir="libs" />
+        <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/MagTekUDynamoPlugin.java" target-dir="src/com/egood/cordova/plugins/magtekudynamo" />
+    </platform>
 </plugin>
-/Users/thomastakemoto/Desktop/uDynamoPlugin/CardReaderPlugin/plugin.xml
