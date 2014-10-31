@@ -1,6 +1,6 @@
 #import "MagTekUDynamoPlugin.h"
+
 #import "MTSCRA.h"
-#import <Cordova/CDV.h>
 
 @interface MagTekUDynamoPlugin ()
 
@@ -69,19 +69,53 @@
 	//Open MagTek device to start reading card data
 	if(self.mMagTek != nil) {
         if(![self mDeviceOpened]) {
-            [self.mMagTek setDeviceType:(MAGTEKAUDIOREADER)];
-            [self.mMagTek setDeviceProtocolString:(@"com.magtek.udynamo")];
-            [self.mMagTek setDeviceType:(MAGTEKAUDIOREADER)];
+            [self.mMagTek setDeviceType:(MAGTEKIDYNAMO)];
+            [self.mMagTek setDeviceProtocolString:(@"com.magtek.idynamo")];
             
             self.mDeviceOpened = [self.mMagTek openDevice];
+            if([self.mMagTek isDeviceConnected]) {
+                self.mDeviceConnected = true;
+                
+                if([self.mMagTek isDeviceOpened]) {
+                    self.mDeviceOpened = true;
+                }
+                else {
+                    self.mDeviceOpened = false;
+                }
+                
+                pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:self.mDeviceOpened];
+            }
+            else {
+                //Lets try an uDynamo Reader
+                [self.mMagTek setDeviceType:(MAGTEKAUDIOREADER)];
+                [self.mMagTek setDeviceProtocolString:(@"com.magtek.udynamo")];
+                
+                self.mDeviceOpened = [self.mMagTek openDevice];
+                
+                if([self.mMagTek isDeviceConnected]) {
+                    self.mDeviceConnected = true;
+                    
+                    if([self.mMagTek isDeviceOpened]) {
+                        self.mDeviceOpened = true;
+                    }
+                    else {
+                        self.mDeviceOpened = false;
+                    }
+                    
+                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:self.mDeviceOpened];
+                }
+                else {
+                    self.mDeviceOpened = false;
+                    self.mDeviceConnected = false;
+                    
+                    pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"No reader attached."];
+                }
+            }
         }
-        
-		if(self.mDeviceOpened) {
-			self.mDeviceConnected = true;
-		}
-        
-		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:self.mDeviceOpened];
-	}
+        else {
+            pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Reader already open."];
+        }
+    }
 	else {
 		pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"MagTek Plugin was not properly initialized."];
 	}
