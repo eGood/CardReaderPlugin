@@ -257,16 +257,40 @@
         }
         else
         {
-        	[data setObject:[self.mMagTek getCardIIN] forKey:@"Card.IIN"];
-        	[data setObject:[self.mMagTek getCardName] forKey:@"Card.Name"];
-        	[data setObject:[self.mMagTek getCardLast4] forKey:@"Card.Last4"];
-        	[data setObject:[self.mMagTek getCardExpDate] forKey:@"Card.ExpDate"];
-        	[data setObject:[self.mMagTek getCardServiceCode] forKey:@"Card.ServiceCode"];
-        	[data setObject:[self.mMagTek getTrack1Masked] forKey:@"Track1.Masked"];
-        	[data setObject:[self.mMagTek getTrack2Masked] forKey:@"Track2.Masked"];
-        	[data setObject:[self.mMagTek getTrack3Masked] forKey:@"Track3.Masked"];
-        	[data setObject:[self.mMagTek getMagnePrint] forKey:@"MagnePrint"];
-        	[data setObject:[self.mMagTek getResponseData] forKey:@"RawResponse"];
+        	[data setObject:[self.mMagTek getResponseType] forKey:@"Response.Type"];
+            [data setObject:[self.mMagTek getTrackDecodeStatus] forKey:@"Track.Status"];
+            [data setObject:[self.mMagTek getCardStatus] forKey:@"Card.Status"];
+            [data setObject:[self.mMagTek getEncryptionStatus] forKey:@"Encryption.Status"];
+            [data setObject:[NSString stringWithFormat:@"%ld", [self.mMagTek getSwipeCount]] forKey:@"Swipe.Count"];
+            [data setObject:[self.mMagTek getMaskedTracks] forKey:@"Track.Masked"];
+            [data setObject:[self.mMagTek getMagnePrintStatus] forKey:@"MagnePrint.Status"];
+            [data setObject:[self.mMagTek getSessionID] forKey:@"SessionID"];
+            [data setObject:[self.mMagTek getCardServiceCode] forKey:@"Card.SvcCode"];
+            [data setObject:[NSString stringWithFormat:@"%d", [self.mMagTek getCardPANLength]] forKey:@"Card.PANLength"];
+            [data setObject:[self.mMagTek getKSN] forKey:@"KSN"];
+            [data setObject:[self.mMagTek getDeviceSerial] forKey:@"Device.SerialNumber"];
+            [data setObject:[self.mMagTek getTagValue:TLV_CARDIIN] forKey:@"TLV.CARDIIN"];
+            [data setObject:[self.mMagTek getMagTekDeviceSerial] forKey:@"MagTekSN"];
+            [data setObject:[self.mMagTek getFirmware] forKey:@"FirmPartNumber"];
+            [data setObject:[self.mMagTek getTLVVersion] forKey:@"TLV.Version"];
+            [data setObject:[self.mMagTek getDeviceName] forKey:@"DevModelName"];
+            [data setObject:[self.mMagTek getCapMSR] forKey:@"MSR.Capability"];
+            [data setObject:[self.mMagTek getCapTracks] forKey:@"Tracks.Capability"];
+            [data setObject:[self.mMagTek getCapMagStripeEncryption] forKey:@"Encryption.Capability"];
+
+            [data setObject:[self.mMagTek getCardIIN] forKey:@"Card.IIN"];
+            [data setObject:[self.mMagTek getCardName] forKey:@"Card.Name"];
+            [data setObject:[self.mMagTek getCardLast4] forKey:@"Card.Last4"];
+            [data setObject:[self.mMagTek getCardExpDate] forKey:@"Card.ExpDate"];
+            [data setObject:[self.mMagTek getCardServiceCode] forKey:@"Card.ServiceCode"];
+            [data setObject:[self.mMagTek getTrack1Masked] forKey:@"Track1.Masked"];
+            [data setObject:[self.mMagTek getTrack2Masked] forKey:@"Track2.Masked"];
+            [data setObject:[self.mMagTek getTrack3Masked] forKey:@"Track3.Masked"];
+            [data setObject:[self.mMagTek getTrack1] forKey:@"Track1"];
+            [data setObject:[self.mMagTek getTrack2] forKey:@"Track2"];
+            [data setObject:[self.mMagTek getTrack3] forKey:@"Track3"];
+            [data setObject:[self.mMagTek getMagnePrint] forKey:@"MagnePrint"];
+            [data setObject:[self.mMagTek getResponseData] forKey:@"RawResponse"];
             /*
              NSString * pResponse = [NSString stringWithFormat:@"Track.Status: %@\n"
              "Encryption.Status: %@\n"

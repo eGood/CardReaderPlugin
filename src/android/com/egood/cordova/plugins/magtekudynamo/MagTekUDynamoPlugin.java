@@ -179,6 +179,12 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 	        		 model.equals("SGH-T889")||// Notes 2
 	        		 model.equals("SPH-L900")||// Notes 2
 	        		 model.equals("SAMSUNG-SGH-I337")||// S4
+	        		 model.equals("SAMSUNG-SGH-M919")||// S4
+	        		 model.equals("SAMSUNG-SCH-I545")||// S4
+	        		 model.equals("SAMSUNG-SPH-L720")||// S4
+	        		 model.equals("SAMSUNG-SCH-R970")||// S4
+	        		 model.equals("SAMSUNG-SCH-R970X")||// S4
+	        		 model.equals("SAMSUNG-SCH-R970C")||// S4
 	        		 model.equals("SAMSUNG-SM-G900A")||// S5
 	        		 model.equals("GT-P3113"))//Galaxy Tab 2, 7.0
     		{
