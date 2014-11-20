@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="com.egood.magtek-udynamo" version="0.0.1" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="com.egood.magtek-udynamo" version="0.0.5" xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
     <name>MagTek uDynamo Card Reader</name>
     <description>Allow using the MagTek uDynamo Card Reader with PhoneGap apps</description>
     <author email="dev@egood.com" href="http://www.egood.com">eGood, LLC</author>
