@@ -3,100 +3,116 @@
     var MagTek = ( typeof MagTek === 'undefined' ? {} : MagTek );
     var cordova = window.cordova || window.Cordova,
         fail = function(error) {
-            $('.error').html('Something went wrong: ' + error);
-            console.log('Something went wrong: ' + error);
+            console.log('Error running your request: ' + error);
         };
  
-    MagTek.isDeviceConnected = function(callback) {
+    MagTek.isDeviceConnected = function(callback, error) {
         $('.error').html('Making cordova.exec call to isDeviceConnected', []);
         var success = function(connected) {
             callback(connected);
         };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'isDeviceConnected', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'isDeviceConnected', []);
         $('.error').html('Made cordova.exec call to isDeviceConnected');
     };
 
-    MagTek.isDeviceOpened = function(callback) {
+    MagTek.isDeviceOpened = function(callback, error) {
         var success = function(opened) { callback(opened); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'isDeviceOpened', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'isDeviceOpened', []);
     };
 
-    MagTek.openDevice = function(callback) {
+    MagTek.openDevice = function(callback, error) {
+        var success = function(status) { callback(status); }
+        var fail_handler = error || fail;;
+
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'openDevice', []);
+    };
+    MagTek.closeDevice = function(callback, error) {
         var success = function(status) { callback(status); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'openDevice', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'closeDevice', []);
     };
-    MagTek.closeDevice = function(callback) {
-        var success = function(status) { callback(status); };
-
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'closeDevice', []);
-    };
-    MagTek.clearCardData = function(callback) {
+    MagTek.clearCardData = function(callback, error) {
         var success = function(data_cleared) { callback(data_cleared); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'clearCardData', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'clearCardData', []);
     };
-    MagTek.setCardData = function(callback) {
+    MagTek.setCardData = function(callback, error) {
         var success = function(data_set) { callback(data_set); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'setCardData', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'setCardData', []);
     };
-    MagTek.getTrackDecodeStatus = function(callback) {
+    MagTek.getTrackDecodeStatus = function(callback, error) {
         var success = function(decode_status) { callback(decode_status); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getTrackDecodeStatus', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getTrackDecodeStatus', []);
     };
-    MagTek.getTrack1 = function(callback) {
+    MagTek.getTrack1 = function(callback, error) {
         var success = function(track) { callback(track); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getTrack1', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getTrack1', []);
     };
-    MagTek.getTrack2 = function(callback) {
+    MagTek.getTrack2 = function(callback, error) {
         var success = function(track) { callback(track); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getTrack2', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getTrack2', []);
     };
-    MagTek.getTrack3 = function(callback) {
+    MagTek.getTrack3 = function(callback, error) {
         var success = function(track) { callback(track); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getTrack3', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getTrack3', []);
     };
-    MagTek.getTrack1Masked = function(callback) {
+    MagTek.getTrack1Masked = function(callback, error) {
         var success = function(track) { callback(track); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getTrack1Masked', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getTrack1Masked', []);
     };
-    MagTek.getTrack2Masked = function(callback) {
+    MagTek.getTrack2Masked = function(callback, error) {
         var success = function(track) { callback(track); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getTrack2Masked', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getTrack2Masked', []);
     };
-    MagTek.getTrack3Masked = function(callback) {
+    MagTek.getTrack3Masked = function(callback, error) {
         var success = function(track) { callback(track); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getTrack3Masked', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getTrack3Masked', []);
     };
-    MagTek.getMagnePrintStatus = function(callback) {
+    MagTek.getMagnePrintStatus = function(callback, error) {
         var success = function(status) { callback(status); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getMagnePrintStatus', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getMagnePrintStatus', []);
     };
-    MagTek.getMagnePrint = function(callback) {
+    MagTek.getMagnePrint = function(callback, error) {
         var success = function(magne_print) { callback(magne_print); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getMagnePrint', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getMagnePrint', []);
     };
-    MagTek.getDeviceSerial = function(callback) {
+    MagTek.getDeviceSerial = function(callback, error) {
         var success = function(device_serial) { callback(device_serial); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getDeviceSerial', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getDeviceSerial', []);
     };
-    MagTek.getSessionID = function(callback) {
+    MagTek.getSessionID = function(callback, error) {
         var success = function(session_id) { callback(session_id); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getSessionID', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getSessionID', []);
     };
 
 
@@ -105,43 +121,51 @@
 
     MagTek.setDeviceProtocolString = function(callback, protocol_string) {
         var success = function(status) { callback(status); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'setDeviceProtocolString', [protocol_string]);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'setDeviceProtocolString', [protocol_string]);
     };
-    MagTek.listenForEvents = function(callback, events) {
+    MagTek.listenForEvents = function(callback, events, error) {
         var success = function(status) { callback(status); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'listenForEvents', events);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'listenForEvents', events);
     };
-    MagTek.getCardName = function(callback) {
+    MagTek.getCardName = function(callback, error) {
         var success = function(card_name) { callback(card_name); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getCardName', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getCardName', []);
     };
-    MagTek.getCardIIN = function(callback) {
+    MagTek.getCardIIN = function(callback, error) {
         var success = function(card_iin) { callback(card_iin); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getCardIIN', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getCardIIN', []);
     };
-    MagTek.getCardLast4 = function(callback) {
+    MagTek.getCardLast4 = function(callback, error) {
         var success = function(card_last4) { callback(card_last4); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getCardLast4', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getCardLast4', []);
     };
-    MagTek.getCardExpDate = function(callback) {
+    MagTek.getCardExpDate = function(callback, error) {
         var success = function(card_exp_date) { callback(card_exp_date); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getCardExpDate', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getCardExpDate', []);
     };
-    MagTek.getCardServiceCode = function(callback) {
+    MagTek.getCardServiceCode = function(callback, error) {
         var success = function(card_svc) { callback(card_svc); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getCardServiceCode', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getCardServiceCode', []);
     };
-    MagTek.getCardStatus = function(callback) {
+    MagTek.getCardStatus = function(callback, error) {
         var success = function(card_status) { callback(card_status); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'getCardStatus', []);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'getCardStatus', []);
     };
 
 
@@ -150,13 +174,15 @@
 
     MagTek.setDeviceType = function(callback, device_type) {
         var success = function(status) { callback(status); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'setDeviceType', [device_type]);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'setDeviceType', [device_type]);
     };
     MagTek.setDeviceType = function(callback, device_type) {
         var success = function(status) { callback(status); };
+        var fail_handler = error || fail;
 
-        cordova.exec(success, fail, 'com.egood.magtek-udynamo', 'setDeviceType', [device_type]);
+        cordova.exec(success, fail_handler, 'com.egood.magtek-udynamo', 'setDeviceType', [device_type]);
     };
  
     module.exports = MagTek;
