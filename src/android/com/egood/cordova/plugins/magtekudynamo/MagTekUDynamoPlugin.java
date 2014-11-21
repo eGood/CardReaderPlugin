@@ -237,24 +237,28 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 				InitializeDevice();
 			}			
 
-			if(mMTSCRA.getDeviceType() == MagTekSCRA.DEVICE_TYPE_AUDIO) {
-				//Thread tSetupAudioParams = new Thread() {
-				//	public void run() {
-				try {
-					mStringAudioConfigResult = setupAudioParameters();
-				} catch(Exception ex) {
-					mStringAudioConfigResult = "Error:" + ex.getMessage();
-				}
-				//	}
-				//}
+			if(mbAudioConnected) {
+                if(mMTSCRA.getDeviceType() == MagTekSCRA.DEVICE_TYPE_AUDIO) {
+                    //Thread tSetupAudioParams = new Thread() {
+                    //	public void run() {
+                    try {
+                        mStringAudioConfigResult = setupAudioParameters();
+                    } catch(Exception ex) {
+                        mStringAudioConfigResult = "Error:" + ex.getMessage();
+                    }
+                    //	}
+                    //}
 
-				//tSetupAudioParams.start();
-			}
-			else {
-			}
-			mMTSCRA.openDevice();
+                    //tSetupAudioParams.start();
+                }
+                else {
+                }
+                mMTSCRA.openDevice();
 
-			pr = new PluginResult(PluginResult.Status.OK, mMTSCRA.isDeviceConnected());
+                pr = new PluginResult(PluginResult.Status.OK, mMTSCRA.isDeviceConnected());
+            } else {
+                pr = new PluginResult(PluginResult.Status.ERROR, "No reader attached.");
+            }
 		}
 		else if(action.equals("closeDevice")) {
 			mMTSCRA.closeDevice();
@@ -356,6 +360,27 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 
 		return true;
 	}
+
+    @Override
+    public void onResume(boolean multitasking) {
+        cordova.getActivity().getApplicationContext().registerReceiver(mHeadsetReceiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
+        cordova.getActivity().getApplicationContext().registerReceiver(mNoisyAudioStreamReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
+
+        // Performing this check in onResume() covers the case in which BT was
+        // not enabled during onStart(), so we were paused to enable it...
+        // onResume() will be called when ACTION_REQUEST_ENABLE activity
+        // returns.
+    }
+
+    @Override
+    public void onDestroy() {
+        // Stop the Bluetooth chat services
+        cordova.getActivity().getApplicationContext().unregisterReceiver(mHeadsetReceiver);
+        cordova.getActivity().getApplicationContext().unregisterReceiver(mNoisyAudioStreamReceiver);
+        if (mMTSCRA != null)
+            mMTSCRA.closeDevice();
+
+    }
 
 	private void maxVolume() {
 		mAudioMgr.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioMgr.getStreamMaxVolume(AudioManager.STREAM_MUSIC), AudioManager.FLAG_SHOW_UI);
@@ -501,7 +526,6 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
         public void onReceive(Context context, Intent intent) {
 
             // TODO Auto-generated method stub
-
         	try
         	{
                 String action = intent.getAction();
