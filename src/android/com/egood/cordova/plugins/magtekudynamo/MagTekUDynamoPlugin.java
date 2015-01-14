@@ -8,10 +8,11 @@ import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.util.*;
 
+import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 import org.apache.cordova.CallbackContext;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,13 +42,11 @@ import android.media.AudioManager;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Handler.Callback;
-
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-
 import android.util.Log;
 import android.view.inputmethod.*;
 import android.view.*;
@@ -101,7 +100,6 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 	private String mStringAudioConfigResult;
 	private CallbackContext mEventListenerCb;
 
-
 	private void InitializeDevice() {
 		if(mMTSCRA == null) {
 			mMTSCRA = new MagTekSCRA(mSCRADataHandler);
@@ -111,6 +109,8 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 		}
 
 		InitializeData();
+		
+		onResume(false);
 
 		mIntCurrentVolume = mAudioMgr.getStreamVolume(AudioManager.STREAM_MUSIC);
 	}
@@ -363,6 +363,8 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 
     @Override
     public void onResume(boolean multitasking) {
+    	super.onResume(multitasking);
+    	
         cordova.getActivity().getApplicationContext().registerReceiver(mHeadsetReceiver, new IntentFilter(Intent.ACTION_HEADSET_PLUG));
         cordova.getActivity().getApplicationContext().registerReceiver(mNoisyAudioStreamReceiver, new IntentFilter(AudioManager.ACTION_AUDIO_BECOMING_NOISY));
 
@@ -374,12 +376,12 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 
     @Override
     public void onDestroy() {
-        // Stop the Bluetooth chat services
         cordova.getActivity().getApplicationContext().unregisterReceiver(mHeadsetReceiver);
         cordova.getActivity().getApplicationContext().unregisterReceiver(mNoisyAudioStreamReceiver);
         if (mMTSCRA != null)
             mMTSCRA.closeDevice();
 
+    	super.onDestroy();
     }
 
 	private void maxVolume() {
@@ -524,7 +526,6 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
             // TODO Auto-generated method stub
         	try
         	{
